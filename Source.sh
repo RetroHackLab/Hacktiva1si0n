@@ -85,29 +85,11 @@ run_ssh "chown root:wheel $MNT_SYS/usr/libexec/lockdownd"
 run_ssh "chmod 755 $MNT_SYS/usr/libexec/lockdownd"
 echo "    [✓] Ownership locked at root:wheel (755 permissions)."
 
-# 4. SETUP APP LINK DEACTIVATION & PURPLEBUDDY KEYS INJECTION
-echo "[-] Overriding Setup configuration keys..."
-run_ssh "if [ -f $MNT_SYS/Applications/Setup.app/Setup ]; then mv $MNT_SYS/Applications/Setup.app/Setup $MNT_SYS/Applications/Setup.app/Setup.bak; ln -s $MNT_SYS/System/Library/CoreServices/SpringBoard.app/SpringBoard $MNT_SYS/Applications/Setup.app/Setup; fi"
-
-run_ssh "mkdir -p $MNT_DATA/mobile/Library/Preferences"
-run_ssh "cat <<EOF > $MNT_DATA/mobile/Library/Preferences/com.apple.purplebuddy.plist
-<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-    <key>SetupDone</key>
-    <true/>
-    <key>ActivationState</key>
-    <string>Activated</string>
-</dict>
-</plist>
-EOF"
-run_ssh "chown 501:501 $MNT_DATA/mobile/Library/Preferences/com.apple.purplebuddy.plist; chmod 644 $MNT_DATA/mobile/Library/Preferences/com.apple.purplebuddy.plist"
 
 # 5. SAFELY UNMOUNT AND INITIATE COLD REBOOT
 echo "[-] Unmounting block nodes and requesting reboot sequence..."
 run_ssh "sync; umount $MNT_SYS 2>/dev/null; umount $MNT_DATA 2>/dev/null"
-run_ssh "reboot 2>/dev/null"
+run_ssh "reboot_bak 2>/dev/null"
 
 echo ""
 echo "=================================================================="
