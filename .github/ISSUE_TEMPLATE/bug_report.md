@@ -18,5 +18,6 @@ A clear and concise description of what the error is.
 
 **Console Output Logs**
 Paste the terminal output where the script failed or returned `[Unsupported]`:
+
 ```text
-[Paste terminal logs here]
+*Enter your problem in Issues*
