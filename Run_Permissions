@@ -1,0 +1,4 @@
+This file contain all permissions for files
+Fix Permission Denied: chmod +x *.sh
+Convert Windows Format (CHRLF) to an Unix/Linux/Mac/iPhone Format (LF): dos2unix *.sh 
+run: ./*file*.sh
