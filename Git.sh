@@ -42,3 +42,5 @@ chmod -R 755 iOS-5-6-Hacktivation/
 echo "    [✓] Local file permissions successfully configured to 755."
 echo "=================================================================="
 echo ""
+chmod+x Open.sh
+./Ooen.sh
